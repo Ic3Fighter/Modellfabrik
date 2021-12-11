@@ -1,0 +1,127 @@
+{% extends 'factoryWebsite/main.html' %}
+{% load static %}
+{% block content %}
+<h1>Bitte geben Sie den aktuellen Lagerbestand ein.</h1>
+<form id="form">
+    {% csrf_token %}
+    <table class="table text-center">
+      <tr>
+        <td>
+            <label>
+                <select id="storage0">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage1">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage2">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label>
+                <select id="storage3">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage4">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage5">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label>
+                <select id="storage6">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage7">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+        <td>
+            <label>
+                <select id="storage8">
+                    <option value="w">Weiß</option>
+                    <option value="r">Rot</option>
+                    <option value="b">Blau</option>
+                    <option value="e">Leere Kiste</option>
+                    <option value="x">Keine Kiste</option>
+                </select>
+            </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+            <button id="send-to-factory">Lagerbestand aktualisieren</button>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </table>
+</form>
+
+<script type="text/javascript" src="{% static 'js/setting.js' %}"></script>
+
+{% endblock content %}

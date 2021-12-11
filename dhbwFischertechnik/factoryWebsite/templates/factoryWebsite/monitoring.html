@@ -1,0 +1,64 @@
+{% extends 'factoryWebsite/main.html' %}
+{% load static %}
+{% block content %}
+<h1>Sortierstraße</h1>
+<table class="table text-center">
+    <tr>
+    <td>
+        <label>Farbsensor ==> </label><br>
+    </td>
+    <td>
+        <div id="color-sensor">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <label>Temperatursensor ==> </label><br>
+    </td>
+    <td>
+        <div id="temperature-sorting-sensor">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <label>Spannungsensor ==> </label><br>
+    </td>
+    <td>
+        <div id="voltage-sorting-sensor">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </td>
+    </tr>
+</table>
+
+<h1>Hochregallager</h1>
+<table class="table text-center">
+    <tr>
+    <td>
+        <label>Temperatursensor ==> </label><br>
+    </td>
+    <td>
+        <div id="temperature-main-sensor">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <label>Spannungsensor ==> </label><br>
+    </td>
+    <td>
+        <div id="voltage-main-sensor">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+    </td>
+    </tr>
+</table>
+
+<script type="text/javascript" src="{% static 'js/monitoring.js' %}"></script>
+
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'factoryWebsite/main.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <h1>Lagerbestand</h1>
+    <table class="table text-center">
+        <tr>
+            <td>
+                <div id="storage0">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+            <td>
+                <div id="storage1">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+            <td>
+                <div id="storage2">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="storage3">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+            <td>
+                <div id="storage4">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+
+            </td>
+            <td>
+                <div id="storage5">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="storage6">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+            <td>
+                <div id="storage7">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+            <td>
+                <div id="storage8">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript" src="{% static 'js/storage.js' %}"></script>
+
+{% endblock content %}
