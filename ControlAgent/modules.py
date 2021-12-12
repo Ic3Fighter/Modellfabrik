@@ -27,4 +27,4 @@ class MainUnit:
             print("Sending order", id, "to MainUnit")
             mqtt_handler.MqttHandler.client.publish("Order/Send", id, 2)
             MainUnit.status = "inbound"
-            mqtt_handler.MqttHandler.client.publish("Modules/MainUnit/Status", MainUnit.status, 2)
+            mqtt_handler.MqttHandler.client.publish("Modules/MainUnit/Status", MainUnit.status, 1, True)
