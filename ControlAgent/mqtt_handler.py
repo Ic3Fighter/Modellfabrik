@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqttc
 import json
+import socket
 
 import config
 import modules
@@ -20,16 +21,23 @@ class MqttHandler:
         MqttHandler.client.on_subscribe = MqttHandler.on_subscribe
         MqttHandler.client.on_unsubscribe = MqttHandler.on_unsubscribe
 
-        # connect to broker
-        MqttHandler.client.connect(config.MQTT_BROKER_HOST, config.MQTT_BROKER_PORT, config.MQTT_BROKER_KEEPALIVE)
+        try:
+            # connect to broker
+            MqttHandler.client.connect(config.MQTT_BROKER_HOST, config.MQTT_BROKER_PORT, config.MQTT_BROKER_KEEPALIVE)
+        except socket.timeout:
+            print("Connection resulted in timeout!")
+            return False
+
         MqttHandler.client.loop_start()
 
         # subscribe to monitoring topics
         MqttHandler.client.subscribe([
-            ("Discovery/+", 2),
+            ("Discovery/+", 2),  # + is single level placeholder
             ("Modules/+/Status", 2),
             ("Order/Queue", 2)
-        ])  # + is single level placeholder
+        ])
+
+        return True
 
     def shutdown():
         MqttHandler.client.loop_stop()
