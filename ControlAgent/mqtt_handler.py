@@ -65,9 +65,9 @@ class MqttHandler:
             if module == "MainUnit":
                 modules.MainUnit.process_message(msg.topic, msg.payload)
             elif module == "ProcessingStation":
-                pass
+                modules.ProcessingStation.process_message(msg.topic, msg.payload)
             elif module == "SortingLine":
-                pass
+                modules.SortingLine.process_message(msg.topic, msg.payload)
             else:
                 print("Unknown module:", module)
         elif msg.topic == "Order/Queue":
