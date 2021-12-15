@@ -102,4 +102,4 @@ class MqttHandler:
         if module_name in MqttHandler.modules:
             print(f"Unregister module {module_name}")
             MqttHandler.modules.remove(module_name)
-            MqttHandler.client.publish("Modules/" + module_name + "/Status", "disconnected", 1, True)
+            MqttHandler.client.publish("Modules/" + module_name + "/Status", json.dumps({"status": "disconnected", "order": "null"}), 1, True)

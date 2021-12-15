@@ -23,12 +23,16 @@ class MainUnit:
                 mqtt_handler.MqttHandler.client.publish("Modules/MainUnit/Status", json.dumps(MainUnit.status), 1, True)
                 # print("MainUnit changed status to", MainUnit.status)
 
-            if MainUnit.status['status'] == "inbound":
+            # check availability for new order
+            if MainUnit.status['status'] == "ready":
+                Queue.send_order()
+
+            elif MainUnit.status['status'] == "inbound":
                 print("Color inbound for MainUnit")
 
-            # check availability for new order
-            elif MainUnit.status['status'] == "ready":
-                Queue.send_order()
+            elif MainUnit.status['status'] == "busy":
+                # no depending previous module
+                pass
 
             # commence transport to next module
             elif MainUnit.status['status'] == "done":
@@ -78,15 +82,20 @@ class ProcessingStation:
                 mqtt_handler.MqttHandler.client.publish("Modules/ProcessingStation/Status", json.dumps(ProcessingStation.status), 1, True)
                 # print("ProcessingStation changed status to", ProcessingStation.status)
 
-            if ProcessingStation.status['status'] == "inbound":
-                print("New order inbound for ProcessingStation")
-
             # check availability for new order
-            elif ProcessingStation.status['status'] == "ready":
+            if ProcessingStation.status['status'] == "ready":
                 try:
                     MainUnit.move_order(MainUnit.status['order'])
                 except ValueError:
                     print("ProcessingStation is status ready, but no new order id was provided!")
+
+            elif ProcessingStation.status['status'] == "inbound":
+                print("New order inbound for ProcessingStation")
+
+            elif ProcessingStation.status['status'] == "busy":
+                # part received succesfully, change previous to ready
+                MainUnit.status = {"status": "ready", "order": "null"}
+                mqtt_handler.MqttHandler.client.publish("Modules/MainUnit/Status", json.dumps(MainUnit.status), 1, True)
 
             # start transport to next module
             elif ProcessingStation.status['status'] == "done":
@@ -126,15 +135,20 @@ class SortingLine:
                 mqtt_handler.MqttHandler.client.publish("Modules/SortingLine/Status", json.dumps(SortingLine.status), 1, True)
                 # print("SortingLine changed status to", SortingLine.status)
 
-            if SortingLine.status['status'] == "inbound":
-                print("New order inbound for SortingLine")
-
             # check availability for new order
-            elif SortingLine.status['status'] == "ready":
+            if SortingLine.status['status'] == "ready":
                 try:
                     ProcessingStation.move_order(ProcessingStation.status['order'])
                 except ValueError:
                     print("SortingLine is status ready, but no new order id was provided!")
+
+            elif SortingLine.status['status'] == "inbound":
+                print("New order inbound for SortingLine")
+
+            elif SortingLine.status['status'] == "busy":
+                # part received succesfully, change previous to ready
+                ProcessingStation.status = {"status": "ready", "order": "null"}
+                mqtt_handler.MqttHandler.client.publish("Modules/ProcessingStation/Status", json.dumps(ProcessingStation.status), 1, True)
 
             # start transport to next module
             elif SortingLine.status['status'] == "done":
