@@ -37,6 +37,7 @@ class MainUnit:
                 except ValueError:
                     print("MainUnit is status done, but could not process order id!")
 
+    # check next module in cycle and send if available
     def send_order(id):
         if not MainUnit.status['status'] == "ready":
             print("MainUnit is not ready for new order!")
@@ -80,6 +81,20 @@ class ProcessingStation:
             if ProcessingStation.status['status'] == "inbound":
                 print("New order inbound for ProcessingStation")
 
+            # check availability for new order
+            elif ProcessingStation.status['status'] == "ready":
+                try:
+                    MainUnit.move_order(MainUnit.status['order'])
+                except ValueError:
+                    print("ProcessingStation is status ready, but no new order id was provided!")
+
+            # start transport to next module
+            elif ProcessingStation.status['status'] == "done":
+                try:
+                    ProcessingStation.move_order(ProcessingStation.status['order'])
+                except ValueError:
+                    print("ProcessingStation is status done, but could not process order id!")
+
     # move order to next module
     def move_order(id):
         if ProcessingStation.status['status'] == "done" and SortingLine.status['status'] == "ready":
@@ -114,9 +129,26 @@ class SortingLine:
             if SortingLine.status['status'] == "inbound":
                 print("New order inbound for SortingLine")
 
+            # check availability for new order
+            elif SortingLine.status['status'] == "ready":
+                try:
+                    ProcessingStation.move_order(ProcessingStation.status['order'])
+                except ValueError:
+                    print("SortingLine is status ready, but no new order id was provided!")
+
+            # start transport to next module
+            elif SortingLine.status['status'] == "done":
+                # try:
+                #     ProcessingStation.move_order(ProcessingStation.status['order'])
+                # except ValueError:
+                #     print("ProcessingStation is status done, but could not process order id!")
+                SortingLine.status = {"status": "ready", "order": "null"}
+                mqtt_handler.MqttHandler.client.publish("Modules/SortingLine/Status", json.dumps(SortingLine.status), 1, True)
+
     # move order to next module
     def move_color():
-        if SortingLine.status['status'] == "done" and MainUnit.status['status'] == "ready":
+        # SortingLine status does not really matter for this operation
+        if SortingLine.status['status'] == "ready" and MainUnit.status['status'] == "ready":
             print("Moving color out of SortingLine")
             SortingLine.status['status'] = "outbound"
             mqtt_handler.MqttHandler.client.publish("Modules/SortingLine/Status", json.dumps(SortingLine.status), 1, True)
