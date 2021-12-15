@@ -95,6 +95,7 @@ class MqttHandler:
             msg = json.dumps({"name": module_name, "ack": False})
             print(f"Module {module_name} hasn't been approved")
 
+        print(MqttHandler.modules)
         MqttHandler.client.publish("Discovery/LoginAck", msg, 2)
 
     def unregister_module(module_name):
