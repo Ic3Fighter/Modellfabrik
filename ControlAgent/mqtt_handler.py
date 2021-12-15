@@ -62,14 +62,14 @@ class MqttHandler:
         elif str(msg.topic).startswith('Modules'):
             module = msg.topic.split('/')[1]  # Modules/<Name>/Status
 
-            if module == "MainUnit":
+            if module == "MainUnit" and module in MqttHandler.modules:
                 modules.MainUnit.process_message(msg.topic, msg.payload)
-            elif module == "ProcessingStation":
+            elif module == "ProcessingStation" and module in MqttHandler.modules:
                 modules.ProcessingStation.process_message(msg.topic, msg.payload)
-            elif module == "SortingLine":
+            elif module == "SortingLine" and module and MqttHandler.modules:
                 modules.SortingLine.process_message(msg.topic, msg.payload)
             else:
-                print("Unknown module:", module)
+                print("Unknown or logged out module:", module)
         elif msg.topic == "Order/Queue":
             try:
                 order_queue.Queue.new_order(int(msg.payload))

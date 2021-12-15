@@ -39,7 +39,7 @@ class Queue:
     # send first order of queue to MainUnit
     def send_order():
         id = Queue.first()
-        if modules.MainUnit.status == "ready" and modules.MainUnit.module_online() and id is not None:
+        if modules.MainUnit.status['status'] == "ready" and modules.MainUnit.module_online() and id is not None:
             print("Next order with id", str(id))
             Queue.dequeue(id)
             # send order to MainUnit
